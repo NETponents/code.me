@@ -5,6 +5,7 @@ module.exports = {
 	app: {
 		title: 'plug_io - Development Environment'
 	},
+	port: process.env.PORT || 8080,
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
 		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
