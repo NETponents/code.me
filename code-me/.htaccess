@@ -1,0 +1,4 @@
+<Directory "/data">
+   order allow,deny
+   deny from all
+</Directory>
