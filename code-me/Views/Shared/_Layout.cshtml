@@ -15,6 +15,14 @@
                 background: #ff6a00;
                 position: fixed;
             }
+            #adbar {
+                float: right;
+                width: 100px;
+                height: 400px;
+                padding: 40px;
+                background: #00ffff;
+                position: fixed;
+            }
         </style>
     </head>
     <body>
@@ -41,6 +49,9 @@
             <div id="sidebar">
                 <h4>Bugs? Missing features?</h4>
                 <p>Report them on our <a href="http://github.com/NETponents/code.me/issues">GitHub page!</a></p>
+            </div>
+            <div id="adbar">
+                <p>No ad campaign files were found. Please try again later.</p>
             </div>
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
