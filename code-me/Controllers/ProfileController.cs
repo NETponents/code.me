@@ -26,6 +26,7 @@ namespace code_me.Controllers
             ViewData.Add("user_organizations", user_orgs);
             ViewData.Add("user_contact_email", "user_contact_email");
             ViewData.Add("user_contact_website", "user_contact_website");
+            ViewData.Add("user_location", "user_location");
             return View();
         }
     }
