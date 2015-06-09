@@ -4,5 +4,9 @@
 }
 
 <h2> @ViewData["user_name"] </h2>
-<img src="@ViewData["user_image"]" />
-
+<img src="@ViewData["user_image"]" /><br />
+@ViewData["user_joindate"] <br />
+@ViewData["user_feeditems"].ToString() <br />
+@ViewData["user_organizations"].ToString() <br />
+@ViewData["user_contact_email"] <br />
+@ViewData["user_contact_website"] <br />
