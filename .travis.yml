@@ -1,0 +1,29 @@
+language: ruby
+git:
+  submodules: false
+notifications:
+  email:
+    recipients:
+      - wordman05@gmail.com
+    on_success: change
+    on_failure: change
+branches:
+  only:
+  - master
+addons:
+  apt:
+    packages:
+install:
+  - bundle install
+script:
+  - echo 'Configuring JIT variables...'
+  - echo $TRAVIS_BUILD_NUMBER':'$TRAVIS_COMMIT > ./builddata.txt
+  - head ./builddata.txt
+  # Begin testing
+  - echo 'Beginning unit tests...'
+  #- phpunit "Tests/lib-versionTest"
+  - echo 'Unit testing is not set up!'
+deploy:
+  provider: heroku
+  api_key: "9951e24c-b489-48fe-8a60-b325e8d850dd"
+  app: code-me
