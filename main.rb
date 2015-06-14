@@ -19,6 +19,10 @@ helpers do
       return true
     end
   end
+  def auth_username
+    return session[:username]
+  end
+
 end
 
 get '/' do
