@@ -46,6 +46,7 @@ post '/account/login' do
 end
 get '/account/logout' do
   session[:username] = nil
+  redirect "/"
 end
 
 #not_found do
