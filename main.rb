@@ -32,7 +32,9 @@ get '/' do
   end
 end
 get '/account/login' do
-  slim :accountLogin
+  #slim :accountLogin
+  session[:username] = 'Test User'
+  redirect "/"
 end
 post '/account/login' do
   session[:username] = params[:uname]
