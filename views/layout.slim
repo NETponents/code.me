@@ -7,6 +7,10 @@ html
   body
     /[if IE]
       h4 Hey, that's Internet Explorer you're using! We reccommend Firefox or Google Chrome for the best experience.
+      hr
+    -if login?
+      h4 Welcome back #{username}!
+      a href="/account/logout" Log Out
     == yield
     hr
     p Copyright &copy; 2015 - NETponents
