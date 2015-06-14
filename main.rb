@@ -6,17 +6,42 @@ require 'slim'
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
 
+enable :sessions
+
 helpers do
   def partial(template, locals = {})
     slim template, :layout => false, :locals => locals
   end
+  def login?
+    if session[:username].nil?
+      return false
+    else
+      return true
+    end
+  end
 end
 
 get '/' do
-  @TRAVISBUILDNUMBER = 'ERROR'
-  @PageTitle = 'Home'
-  slim :home
+  if session[:username].nil?
+    redirect "/account/login"
+  else
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @PageTitle = 'Home'
+    @UserName = session[:username]
+    slim :home
+  end
 end
+get '/account/login' do
+  slim :accountLogin
+end
+post '/account/login' do
+  session[:username] = params[:uname]
+  redirect "/"
+end
+get '/account/logout' do
+  session[:username] = nil
+end
+
 #not_found do
 #  slim :404
 #end
