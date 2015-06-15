@@ -38,4 +38,5 @@ def getLevelFromPoints(points)
     return 8
   else
     return 0
+  end
 end
