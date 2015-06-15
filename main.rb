@@ -37,6 +37,15 @@ get '/' do
     slim :home
   end
 end
+get '/:userid' do
+  # UserExists() check
+  @userUserName = params[:userid]
+  @userImagePath = ''
+  @userFullName = 'Joshua Zenn'
+  @userGeoLocation = 'United States'
+  @userEmail = 'user@sample.com'
+  slim :userProfile
+end
 get '/account/login' do
   @TRAVISBUILDNUMBER = 'ERROR'
   @PageTitle = 'Log in'
