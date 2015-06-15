@@ -1,4 +1,4 @@
-function getLevelName(lnum)
+def getLevelName(lnum)
   if lnum == 0
     return 'Unknown'
   elsif lnum == 1
@@ -19,7 +19,7 @@ function getLevelName(lnum)
     return 'Ultimate Coder'
   end
 end
-function getLevelFromPoints(points)
+def getLevelFromPoints(points)
   if points >= 0 and points < 100
     return 1
   elsif points >= 100 and points < 200
