@@ -1,9 +1,11 @@
 div class="row"
   div class="col-sm-3"
     img src="#{@userImagePath}"
-    h4 #{@userUserName}
   div class="col-sm-9"
     ul
+      h2 <a href="https://github.com/#{@userUserName}">@#{@userUserName}</a>
+      li Level #{@userLevel}
+      li #{@userPoints} points
       li #{@userFullName}
       li #{@userGeoLocation}
       li <a href="mailto:#{@userEmail}">#{@userEmail}</a>
