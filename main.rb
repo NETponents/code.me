@@ -40,7 +40,7 @@ end
 get '/:userid' do
   # UserExists() check
   @userUserName = params[:userid]
-  @userImagePath = ''
+  @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
   @userFullName = 'Joshua Zenn'
   @userGeoLocation = 'United States'
   @userEmail = 'user@sample.com'
