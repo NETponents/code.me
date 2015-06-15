@@ -27,6 +27,8 @@ end
 
 get '/' do
   if session[:username].nil?
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @PageTitle = 'Home'
     slim :accountSignup
   else
     @TRAVISBUILDNUMBER = 'ERROR'
@@ -36,15 +38,21 @@ get '/' do
   end
 end
 get '/account/login' do
+  @TRAVISBUILDNUMBER = 'ERROR'
+  @PageTitle = 'Log in'
   #slim :accountLogin
   session[:username] = 'Test User'
   redirect "/"
 end
 post '/account/login' do
+  @TRAVISBUILDNUMBER = 'ERROR'
+  @PageTitle = 'Log in'
   session[:username] = params[:uname]
   redirect "/"
 end
 get '/account/logout' do
+  @TRAVISBUILDNUMBER = 'ERROR'
+  @PageTitle = 'Logged out'
   session[:username] = nil
   slim :accountLoggedOut
 end
