@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'slim'
+require './levels.rb'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -41,6 +42,9 @@ get '/:userid' do
   # UserExists() check
   @PageTitle = params[:userid]
   @userUserName = params[:userid]
+  @userPoints = 8000
+  @userLevel = getLevelFromPoints(@userPoints)
+  @levelName = getLevelName(@userLevel)
   @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
   @userFullName = 'Joshua Zenn'
   @userGeoLocation = 'United States'
