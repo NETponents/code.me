@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'slim'
-require 'levels'
+require 'inc/levels'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
