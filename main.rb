@@ -39,6 +39,7 @@ get '/' do
 end
 get '/:userid' do
   # UserExists() check
+  @PageTitle = params[:userid]
   @userUserName = params[:userid]
   @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
   @userFullName = 'Joshua Zenn'
