@@ -27,7 +27,7 @@ end
 
 get '/' do
   if session[:username].nil?
-    redirect "/account/login"
+    slim :accountSignup
   else
     @TRAVISBUILDNUMBER = 'ERROR'
     @PageTitle = 'Home'
