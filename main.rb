@@ -38,17 +38,23 @@ get '/' do
   end
 end
 get '/:userid' do
-  # UserExists() check
-  @PageTitle = params[:userid]
-  @userUserName = params[:userid]
-  @userPoints = 8000
-  @userLevel = getLevelFromPoints(@userPoints)
-  @levelName = getLevelName(@userLevel)
-  @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
-  @userFullName = 'Joshua Zenn'
-  @userGeoLocation = 'United States'
-  @userEmail = 'user@sample.com'
-  slim :userProfile
+  if session[:username].nil?
+    slim :accountSignup
+  else
+    # UserExists() check
+    @PageTitle = params[:userid]
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @UserName = session[:username]
+    @userUserName = params[:userid]
+    @userPoints = 800
+    @userLevel = getLevelFromPoints(@userPoints)
+    @levelName = getLevelName(@userLevel)
+    @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
+    @userFullName = 'Mr Placeholder'
+    @userGeoLocation = 'United States'
+    @userEmail = 'user@sample.com'
+    slim :userProfile
+  end
 end
 get '/account/login' do
   @TRAVISBUILDNUMBER = 'ERROR'
