@@ -46,7 +46,7 @@ post '/account/login' do
 end
 get '/account/logout' do
   session[:username] = nil
-  redirect "/"
+  slim :accountLoggedOut
 end
 
 #not_found do
