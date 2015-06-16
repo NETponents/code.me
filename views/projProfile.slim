@@ -1,0 +1,19 @@
+div class="row"
+  div class="col-sm-3"
+    h1 #{@projName}
+    p #{@projDescription}
+  div class="col-sm-3"
+    h2 Details
+    ul
+      li Owner: #{@projOwner}
+      li Contributors: #{@projContribNum}
+      li Created: #{@projCreateDate}
+      li Commits: #{@projCommitNum}
+      li Language: #{@projLanguage}
+      li GitHub: <a href="http://github.com/#{@projOwner}/#{@projName}">Project Page</a>
+  div class="col-sm-3"
+    h2 Contributors
+div class="row"
+  div class="col-sm-12"
+    h4 Activity
+    p No activity for this time period
