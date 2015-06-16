@@ -1,1 +1,6 @@
-
+def CIgetcommit()
+  return 'TRAVISCOMMIT'
+end
+def CIgetbuild()
+  return 'TRAVISBUILD'
+end
