@@ -37,43 +37,6 @@ get '/' do
     slim :home
   end
 end
-get '/:userid' do
-  if session[:username].nil?
-    slim :accountSignup
-  else
-    # UserExists() check
-    @PageTitle = params[:userid]
-    @TRAVISBUILDNUMBER = 'ERROR'
-    @UserName = session[:username]
-    @userUserName = params[:userid]
-    @userPoints = 800
-    @userLevel = getLevelFromPoints(@userPoints)
-    @levelName = getLevelName(@userLevel)
-    @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
-    @userFullName = 'Mr Placeholder'
-    @userGeoLocation = 'United States'
-    @userEmail = 'user@sample.com'
-    slim :userProfile
-  end
-end
-get '/:userid/:projid'
-  if session[:username].nil?
-    slim :accountSignup
-  else
-    # ProjExists() check
-    @PageTitle = params[:userid] + '/' + params[:projid]
-    @TRAVISBUILDNUMBER = 'ERROR'
-    @UserName = session[:username]
-    @projName = params[:projid]
-    @projDescription = 'A sample project that literally does nothing. Yep, that\'s it.'
-    @projOwner = params[:userid]
-    @projContribNum = '1'
-    @projCreateDate = 'June 1, 2015'
-    @projCommitNum = 200
-    @projLanguage = 'C++'
-    slim :projProfile
-  end
-end
 get '/account/login' do
   @TRAVISBUILDNUMBER = 'ERROR'
   @PageTitle = 'Log in'
@@ -97,3 +60,41 @@ end
 #not_found do
 #  slim :404
 #end
+
+get '/:userid/:projid'
+  if session[:username].nil?
+    slim :accountSignup
+  else
+    # ProjExists() check
+    @PageTitle = params[:userid] + '/' + params[:projid]
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @UserName = session[:username]
+    @projName = params[:projid]
+    @projDescription = 'A sample project that literally does nothing. Yep, nothing to see here.'
+    @projOwner = params[:userid]
+    @projContribNum = '1'
+    @projCreateDate = 'June 1, 2015'
+    @projCommitNum = 200
+    @projLanguage = 'C++'
+    slim :projProfile
+  end
+end
+get '/:userid' do
+  if session[:username].nil?
+    slim :accountSignup
+  else
+    # UserExists() check
+    @PageTitle = params[:userid]
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @UserName = session[:username]
+    @userUserName = params[:userid]
+    @userPoints = 800
+    @userLevel = getLevelFromPoints(@userPoints)
+    @levelName = getLevelName(@userLevel)
+    @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
+    @userFullName = 'Mr Placeholder'
+    @userGeoLocation = 'United States'
+    @userEmail = 'user@sample.com'
+    slim :userProfile
+  end
+end
