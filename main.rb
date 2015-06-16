@@ -2,11 +2,16 @@
 require 'rubygems'
 require 'sinatra'
 require 'slim'
+require 'rest-client'
+require 'json'
 require_relative 'inc/levels'
 #require_relative 'inc/builddata'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
+
+GIT_CLIENT_ID = ENV['GitHub_Client_ID']
+GIT_CLIENT_SECRET = ENV['GitHub_Client_Secret']
 
 enable :sessions
 
@@ -37,13 +42,28 @@ get '/' do
     @TRAVISBUILDNUMBER = 'dev (latest)'
     @PageTitle = 'Home'
     @UserName = session[:username]
+    @UserImg = session[:userimg]
     slim :home
   end
+end
+get '/login/oauthcallback' do
+  session_code = request.env['rack.request.query_hash']['code']
+  result = RestClient.post('https://github.com/login/oauth/access_token',
+                          {:client_id => GIT_CLIENT_ID,
+                           :client_secret => GIT_CLIENT_SECRET,
+                           :code => session_code},
+                           :accept => :json)
+  session[:access_token] = JSON.parse(result)['access_token']
+  auth_result = JSON.parse(RestClient.get('https://api.github.com/user',
+                                        {:params => {:access_token => access_token}}))
+  session[:username] = auth_result['login']
+  session[:userimg] = auth_result['avatar_url']
 end
 get '/account/login' do
   #@TRAVISBUILDNUMBER = getCIstring()
   @TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Log in'
+  @ClientId = GIT_CLIENT_ID
   slim :accountLoginInfo
 end
 get '/account/logout' do
@@ -51,6 +71,8 @@ get '/account/logout' do
   @TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Logged out'
   session[:username] = nil
+  session[:userimg] = nil
+  session[:access_token] = nil
   slim :accountLoggedOut
 end
 
@@ -67,6 +89,7 @@ get '/:userid/:projid' do
     #@TRAVISBUILDNUMBER = getCIstring()
     @TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
+    @UserImg = session[:userimg]
     @projName = params[:projid]
     @projDescription = 'A sample project that literally does nothing. Yep, nothing to see here.'
     @projOwner = params[:userid]
@@ -86,6 +109,7 @@ get '/:userid' do
     #@TRAVISBUILDNUMBER = getCIstring()
     @TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
+    @UserImg = session[:userimg]
     @userUserName = params[:userid]
     @userPoints = 800
     @userLevel = getLevelFromPoints(@userPoints)
