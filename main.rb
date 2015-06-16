@@ -61,7 +61,7 @@ end
 #  slim :404
 #end
 
-get '/:userid/:projid'
+get '/:userid/:projid' do
   if session[:username].nil?
     slim :accountSignup
   else
