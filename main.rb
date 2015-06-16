@@ -42,18 +42,9 @@ get '/' do
 end
 get '/account/login' do
   #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
+  @TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Log in'
-  #slim :accountLogin
-  session[:username] = 'Test User'
-  redirect "/"
-end
-post '/account/login' do
-  #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
-  @PageTitle = 'Log in'
-  session[:username] = params[:uname]
-  redirect "/"
+  slim :accountLoginInfo
 end
 get '/account/logout' do
   #@TRAVISBUILDNUMBER = getCIstring()
