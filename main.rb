@@ -58,6 +58,7 @@ get '/login/oauthcallback' do
                                         {:params => {:access_token => access_token}}))
   session[:username] = auth_result['login']
   session[:userimg] = auth_result['avatar_url']
+  redirect "/"
 end
 get '/account/login' do
   #@TRAVISBUILDNUMBER = getCIstring()
