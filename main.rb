@@ -56,6 +56,24 @@ get '/:userid' do
     slim :userProfile
   end
 end
+get '/:userid/:projid'
+  if session[:username].nil?
+    slim :accountSignup
+  else
+    # ProjExists() check
+    @PageTitle = params[:userid] + '/' + params[:projid]
+    @TRAVISBUILDNUMBER = 'ERROR'
+    @UserName = session[:username]
+    @projName = params[:projid]
+    @projDescription = 'A sample project that literally does nothing. Yep, that\'s it.'
+    @projOwner = params[:userid]
+    @projContribNum = '1'
+    @projCreateDate = 'June 1, 2015'
+    @projCommitNum = 200
+    @projLanguage = 'C++'
+    slim :projProfile
+  end
+end
 get '/account/login' do
   @TRAVISBUILDNUMBER = 'ERROR'
   @PageTitle = 'Log in'
