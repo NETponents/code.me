@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'slim'
 require_relative 'inc/levels'
+require_relative 'inc/builddata'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -27,31 +28,31 @@ end
 
 get '/' do
   if session[:username].nil?
-    @TRAVISBUILDNUMBER = 'ERROR'
+    @TRAVISBUILDNUMBER = getCIstring()
     @PageTitle = 'Home'
     slim :accountSignup
   else
-    @TRAVISBUILDNUMBER = 'ERROR'
+    @TRAVISBUILDNUMBER = getCIstring()
     @PageTitle = 'Home'
     @UserName = session[:username]
     slim :home
   end
 end
 get '/account/login' do
-  @TRAVISBUILDNUMBER = 'ERROR'
+  @TRAVISBUILDNUMBER = getCIstring()
   @PageTitle = 'Log in'
   #slim :accountLogin
   session[:username] = 'Test User'
   redirect "/"
 end
 post '/account/login' do
-  @TRAVISBUILDNUMBER = 'ERROR'
+  @TRAVISBUILDNUMBER = getCIstring()
   @PageTitle = 'Log in'
   session[:username] = params[:uname]
   redirect "/"
 end
 get '/account/logout' do
-  @TRAVISBUILDNUMBER = 'ERROR'
+  @TRAVISBUILDNUMBER = getCIstring()
   @PageTitle = 'Logged out'
   session[:username] = nil
   slim :accountLoggedOut
@@ -67,7 +68,7 @@ get '/:userid/:projid' do
   else
     # ProjExists() check
     @PageTitle = params[:userid] + '/' + params[:projid]
-    @TRAVISBUILDNUMBER = 'ERROR'
+    @TRAVISBUILDNUMBER = getCIstring()
     @UserName = session[:username]
     @projName = params[:projid]
     @projDescription = 'A sample project that literally does nothing. Yep, nothing to see here.'
@@ -85,7 +86,7 @@ get '/:userid' do
   else
     # UserExists() check
     @PageTitle = params[:userid]
-    @TRAVISBUILDNUMBER = 'ERROR'
+    @TRAVISBUILDNUMBER = getCIstring()
     @UserName = session[:username]
     @userUserName = params[:userid]
     @userPoints = 800
