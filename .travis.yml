@@ -1,4 +1,6 @@
 language: ruby
+rvm:
+  - 2.2.1
 git:
   submodules: false
 notifications:
@@ -28,3 +30,4 @@ deploy:
   provider: heroku
   api_key: "9951e24c-b489-48fe-8a60-b325e8d850dd"
   app: code-me
+  skip_cleanup: true
