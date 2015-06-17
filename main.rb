@@ -5,7 +5,7 @@ require 'slim'
 require 'rest-client'
 require 'json'
 require_relative 'inc/levels'
-#require_relative 'inc/builddata'
+require_relative 'inc/builddata'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -33,13 +33,13 @@ end
 
 get '/' do
   if session[:username].nil?
-    #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
+    @TRAVISBUILDNUMBER = getCIstring()
+    #@TRAVISBUILDNUMBER = 'dev (latest)'
     @PageTitle = 'Home'
     slim :accountSignup
   else
-    #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
+    @TRAVISBUILDNUMBER = getCIstring()
+    #@TRAVISBUILDNUMBER = 'dev (latest)'
     @PageTitle = 'Home'
     @UserName = session[:username]
     @UserImg = session[:userimg]
@@ -69,15 +69,15 @@ get '/login/oauthcallback' do
   redirect "/"
 end
 get '/account/login' do
-  #@TRAVISBUILDNUMBER = getCIstring()
-  @TRAVISBUILDNUMBER = 'dev (latest)'
+  @TRAVISBUILDNUMBER = getCIstring()
+    #@TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Log in'
   @ClientId = GIT_CLIENT_ID
   slim :accountLoginInfo
 end
 get '/account/logout' do
-  #@TRAVISBUILDNUMBER = getCIstring()
-  @TRAVISBUILDNUMBER = 'dev (latest)'
+  @TRAVISBUILDNUMBER = getCIstring()
+  #@TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Logged out'
   session[:username] = nil
   session[:userimg] = nil
@@ -91,12 +91,12 @@ end
 
 get '/:userid/:projid' do
   if session[:username].nil?
-    slim :accountSignup
+    redirect "/"
   else
     # ProjExists() check
     @PageTitle = params[:userid] + '/' + params[:projid]
-    #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
+    @TRAVISBUILDNUMBER = getCIstring()
+    #@TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
     @UserImg = session[:userimg]
     @projName = params[:projid]
@@ -111,12 +111,12 @@ get '/:userid/:projid' do
 end
 get '/:userid' do
   if session[:username].nil?
-    slim :accountSignup
+    redirect "/"
   else
     # UserExists() check
     @PageTitle = params[:userid]
-    #@TRAVISBUILDNUMBER = getCIstring()
-    @TRAVISBUILDNUMBER = 'dev (latest)'
+    @TRAVISBUILDNUMBER = getCIstring()
+    #@TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
     @UserImg = session[:userimg]
     @userUserName = params[:userid]
