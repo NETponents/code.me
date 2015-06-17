@@ -47,14 +47,22 @@ get '/' do
   end
 end
 get '/contact' do
-  slim :contact
+  if session[:username].nil?
+    redirect "/"
+  else
+    slim :contact
+  end
 end
 post '/contact' do
-  RestClient.post('https://api.github.com/repos/NETponents/code.me/issues',
-                {:params => {:access_token => session[:access_token],
-                  :title => params[:title],
-                  :body => "@" + params[:uname] + "(" + params[:name] + "): " + params[:message]}}))
-  slim :contact2
+  if session[:username].nil?
+    redirect "/"
+  else
+    RestClient.post('https://api.github.com/repos/NETponents/code.me/issues',
+                  {:params => {:access_token => session[:access_token],
+                    :title => params[:title],
+                    :body => "@" + params[:uname] + "(" + params[:name] + "): " + params[:message]}}))
+    slim :contact2
+  end
 end
 get '/login/oauthcallback' do
   #session_code = request.env['rack.request.query_hash']['code']
