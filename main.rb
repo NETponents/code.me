@@ -46,6 +46,16 @@ get '/' do
     slim :home
   end
 end
+get '/contact' do
+  slim :contact
+end
+post '/contact' do
+  RestClient.post('https://api.github.com/repos/NETponents/code.me/issues',
+                {:params => {:access_token => session[:access_token],
+                  :title => params[:title],
+                  :body => "@" + params[:uname] + "(" + params[:name] + "): " + params[:message]}}))
+  slim :contact2
+end
 get '/login/oauthcallback' do
   #session_code = request.env['rack.request.query_hash']['code']
   puts 't-0'
