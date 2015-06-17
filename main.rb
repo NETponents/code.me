@@ -49,7 +49,7 @@ end
 get '/login/oauthcallback' do
   #session_code = request.env['rack.request.query_hash']['code']
   puts 't-0'
-  session_code = params['code']
+  session_code = params[:code]
   puts 't-1'
   result = RestClient.post('https://github.com/login/oauth/access_token',
                           {:client_id => GIT_CLIENT_ID,
