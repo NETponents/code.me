@@ -1,0 +1,23 @@
+div class="row"
+  div class="col-sm-12"
+    form action="/contact" method="POST"
+      Name: <br />
+      input type="text" name="name"
+      <br />
+      Email: <br />
+      input type="email" name="email"
+      <br />
+      GitHub Username: <br />
+      input type="text" name="uname"
+      <br />
+      Reason for contact: <br />
+      <input type="radio" name="reason" value="bug" checked> Bug
+      <br />
+      <input type="radio" name="reason" value="feature"> Feature
+      <br />
+      <input type="radio" name="reason" value="other"> Other
+      <br />
+      Message: <br />
+      input type="text" name="content"
+      <br />
+      <input type="submit" value="Submit">
