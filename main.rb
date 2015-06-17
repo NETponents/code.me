@@ -60,7 +60,7 @@ get '/login/oauthcallback' do
   session[:access_token] = JSON.parse(result)['access_token']
   puts 't-3'
   auth_result = JSON.parse(RestClient.get('https://api.github.com/user',
-                                        {:params => {:access_token => access_token}}))
+                                        {:params => {:access_token => session[:access_token]}}))
   puts 't-4'
   session[:username] = auth_result['login']
   puts 't-5'
