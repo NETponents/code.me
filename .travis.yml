@@ -13,6 +13,8 @@ branches:
   only:
   - master
 addons:
+  code_climate:
+    repo_token: b0281ad9d663105f20247984ed886f4434a3302657ee22791d9de51d9a3df895
   apt:
     packages:
 install:
