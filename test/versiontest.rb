@@ -1,6 +1,4 @@
 require_relative "../test_helper"
-require_relative "../inc/builddata"
-require_relative "../inc/pagevars"
 require "test/unit"
 require 'rack/test'
 require_relative '../main'
