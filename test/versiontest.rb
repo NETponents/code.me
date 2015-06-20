@@ -22,7 +22,7 @@ class TestVersion < Test::Unit::TestCase
   end
   def test_loginpage
     get '/account/login'
-    #assert last_response.ok?
+    assert last_response.ok?
   end
   def test_logoutpage
     get '/account/logout'
