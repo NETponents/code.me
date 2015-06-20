@@ -3,6 +3,8 @@ rvm:
   - 2.2.1
 git:
   submodules: false
+env:
+  - RACK_ENV=test
 notifications:
   email:
     recipients:

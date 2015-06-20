@@ -14,6 +14,8 @@ set :bind, ENV['IP'] || '0.0.0.0'
 GIT_CLIENT_ID = ENV['GitHub_Client_ID']
 GIT_CLIENT_SECRET = ENV['GitHub_Client_Secret']
 
+RENV = ENV['RACK_ENV']
+
 enable :sessions
 
 helpers do
