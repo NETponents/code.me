@@ -4,7 +4,7 @@ rvm:
 git:
   submodules: false
 env:
-  - RACK_ENV=testing
+  - RACK_ENV=test
 notifications:
   email:
     recipients:
