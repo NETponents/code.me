@@ -50,11 +50,7 @@ get '/' do
   end
 end
 get '/contact' do
-  if session[:username].nil?
-    redirect "/"
-  else
-    slim :contact
-  end
+  slim :contact
 end
 post '/contact' do
   if session[:username].nil?
