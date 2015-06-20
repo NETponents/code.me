@@ -6,6 +6,7 @@ require 'rest-client'
 require 'json'
 require_relative 'inc/levels'
 require_relative 'inc/builddata'
+require_relative 'inc/pagevars'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -33,12 +34,12 @@ end
 
 get '/' do
   if session[:username].nil?
-    @TRAVISBUILDNUMBER = getCIstring()
+    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
     #@TRAVISBUILDNUMBER = 'dev (latest)'
     @PageTitle = 'Home'
     slim :accountSignup
   else
-    @TRAVISBUILDNUMBER = getCIstring()
+    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
     #@TRAVISBUILDNUMBER = 'dev (latest)'
     @PageTitle = 'Home'
     @UserName = session[:username]
@@ -87,14 +88,14 @@ get '/login/oauthcallback' do
   redirect "/"
 end
 get '/account/login' do
-  @TRAVISBUILDNUMBER = getCIstring()
+  @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
     #@TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Log in'
   @ClientId = GIT_CLIENT_ID
   slim :accountLoginInfo
 end
 get '/account/logout' do
-  @TRAVISBUILDNUMBER = getCIstring()
+  @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
   #@TRAVISBUILDNUMBER = 'dev (latest)'
   @PageTitle = 'Logged out'
   session[:username] = nil
@@ -113,7 +114,7 @@ get '/:userid/:projid' do
   else
     # ProjExists() check
     @PageTitle = params[:userid] + '/' + params[:projid]
-    @TRAVISBUILDNUMBER = getCIstring()
+    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
     #@TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
     @UserImg = session[:userimg]
@@ -133,14 +134,14 @@ get '/:userid' do
   else
     # UserExists() check
     @PageTitle = params[:userid]
-    @TRAVISBUILDNUMBER = getCIstring()
+    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
     #@TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
     @UserImg = session[:userimg]
     @userUserName = params[:userid]
     @userPoints = 800
-    @userLevel = getLevelFromPoints(@userPoints)
-    @levelName = getLevelName(@userLevel)
+    @userLevel = Levels.getLevelFromPoints(@userPoints)
+    @levelName = Levels.getLevelName(@userLevel)
     @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
     @userFullName = 'Mr Placeholder'
     @userGeoLocation = 'United States'
