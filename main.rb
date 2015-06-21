@@ -104,7 +104,9 @@ get '/account/logout' do
   slim :accountLoggedOut
 end
 
-include API
+get '/api' do
+  "#{API.a()}"
+end
 
 #not_found do
 #  slim :404
