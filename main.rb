@@ -7,6 +7,7 @@ require 'json'
 require_relative 'inc/levels'
 require_relative 'inc/builddata'
 require_relative 'inc/pagevars'
+require_relative 'inc/Dataconn'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
