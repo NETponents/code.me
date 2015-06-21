@@ -29,6 +29,12 @@ helpers do
       return true
     end
   end
+  def devenv?
+    if RENV == 'test'
+      return true
+    else
+      return false
+    end
   def auth_username
     return session[:username]
   end
@@ -65,24 +71,17 @@ post '/contact' do
 end
 get '/login/oauthcallback' do
   #session_code = request.env['rack.request.query_hash']['code']
-  puts 't-0'
   session_code = params[:code]
-  puts 't-1'
   result = RestClient.post('https://github.com/login/oauth/access_token',
                           {:client_id => GIT_CLIENT_ID,
                            :client_secret => GIT_CLIENT_SECRET,
                            :code => session_code},
                            :accept => :json)
-  puts 't-2'
   session[:access_token] = JSON.parse(result)['access_token']
-  puts 't-3'
   auth_result = JSON.parse(RestClient.get('https://api.github.com/user',
                                         {:params => {:access_token => session[:access_token]}}))
-  puts 't-4'
   session[:username] = auth_result['login']
-  puts 't-5'
   session[:userimg] = auth_result['avatar_url']
-  puts 't-6'
   redirect "/"
 end
 get '/account/login' do
@@ -107,44 +106,48 @@ end
 #end
 
 get '/:userid/:projid' do
-  if session[:username].nil?
-    redirect "/"
-  else
-    # ProjExists() check
-    @PageTitle = params[:userid] + '/' + params[:projid]
-    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
-    #@TRAVISBUILDNUMBER = 'dev (latest)'
+  # ProjExists() check
+  @PageTitle = params[:userid] + '/' + params[:projid]
+  @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
+  if login?
     @UserName = session[:username]
     @UserImg = session[:userimg]
-    @projName = params[:projid]
-    @projDescription = 'A sample project that literally does nothing. Yep, nothing to see here.'
-    @projOwner = params[:userid]
-    @projContribNum = '1'
-    @projCreateDate = 'June 1, 2015'
-    @projCommitNum = 200
-    @projLanguage = 'C++'
-    slim :projProfile
+  elsif devenv?
+    @UserName = 'TravisCIUser'
+    @UserImg = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
+  else
+    redirect "/"
   end
+  @projName = params[:projid]
+  @projDescription = 'A sample project that literally does nothing. Yep, nothing to see here.'
+  @projOwner = params[:userid]
+  @projContribNum = '1'
+  @projCreateDate = 'June 1, 2015'
+  @projCommitNum = 200
+  @projLanguage = 'C++'
+  slim :projProfile
 end
 get '/:userid' do
-  if session[:username].nil?
-    redirect "/"
-  else
-    # UserExists() check
-    @PageTitle = params[:userid]
-    @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
+  @PageTitle = params[:userid]
+  @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
+  if login?
     @UserName = session[:username]
     @UserImg = session[:userimg]
-    #Begin loading vars
-    ustring = Dataconn.getUser(params[:userid])
-    @userUserName = ustring.split(",")[0]
-    @userPoints = ustring.split(",")[1]
-    @userLevel = Levels.getLevelFromPoints(@userPoints)
-    @levelName = Levels.getLevelName(@userLevel)
-    @userImagePath = ustring.split(",")[2]
-    @userFullName = ustring.split(",")[3]
-    @userGeoLocation = ustring.split(",")[4]
-    @userEmail = ustring.split(",")[5]
-    slim :userProfile
+  elsif devenv?
+    @UserName = 'TravisCIUser'
+    @UserImg = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
+  else
+    redirect "/"
   end
+  #Begin loading vars
+  ustring = Dataconn.getUser(params[:userid])
+  @userUserName = ustring.split(",")[0]
+  @userPoints = ustring.split(",")[1]
+  @userLevel = Levels.getLevelFromPoints(@userPoints)
+  @levelName = Levels.getLevelName(@userLevel)
+  @userImagePath = ustring.split(",")[2]
+  @userFullName = ustring.split(",")[3]
+  @userGeoLocation = ustring.split(",")[4]
+  @userEmail = ustring.split(",")[5]
+  slim :userProfile
 end
