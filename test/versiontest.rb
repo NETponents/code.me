@@ -26,10 +26,10 @@ class TestVersion < Test::Unit::TestCase
   end
   def test_projectpage
     get '/ARMmaster17/code.me'
-    #assert last_response.ok?
+    assert last_response.ok?
   end
   def test_userpage
     get '/ARMmaster17'
-    #assert last_response.ok?
+    assert last_response.ok?
   end
 end
