@@ -133,17 +133,18 @@ get '/:userid' do
     # UserExists() check
     @PageTitle = params[:userid]
     @TRAVISBUILDNUMBER = Pagevars.setVars("CIbuild")
-    #@TRAVISBUILDNUMBER = 'dev (latest)'
     @UserName = session[:username]
     @UserImg = session[:userimg]
-    @userUserName = params[:userid]
-    @userPoints = 800
+    #Begin loading vars
+    ustring = Dataconn.getUser(params[:userid])
+    @userUserName = ustring.split(",")[0]
+    @userPoints = ustring.split(",")[1]
     @userLevel = Levels.getLevelFromPoints(@userPoints)
     @levelName = Levels.getLevelName(@userLevel)
-    @userImagePath = 'https://avatars3.githubusercontent.com/u/4678601?v=3&s=460'
-    @userFullName = 'Mr Placeholder'
-    @userGeoLocation = 'United States'
-    @userEmail = 'user@sample.com'
+    @userImagePath = ustring.split(",")[2]
+    @userFullName = ustring.split(",")[3]
+    @userGeoLocation = ustring.split(",")[4]
+    @userEmail = ustring.split(",")[5]
     slim :userProfile
   end
 end
