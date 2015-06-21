@@ -8,6 +8,7 @@ require_relative 'inc/levels'
 require_relative 'inc/builddata'
 require_relative 'inc/pagevars'
 require_relative 'inc/Dataconn'
+require_relative 'inc/api'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -101,6 +102,10 @@ get '/account/logout' do
   session[:userimg] = nil
   session[:access_token] = nil
   slim :accountLoggedOut
+end
+
+get '/api' do
+  "#{API.a()}"
 end
 
 #not_found do

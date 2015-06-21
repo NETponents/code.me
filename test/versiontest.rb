@@ -32,4 +32,8 @@ class TestVersion < Test::Unit::TestCase
     get '/ARMmaster17'
     assert last_response.ok?
   end
+  def test_api_api
+    get '/api'
+    assert last_response.ok?
+  end
 end
