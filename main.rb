@@ -8,7 +8,7 @@ require_relative 'inc/levels'
 require_relative 'inc/builddata'
 require_relative 'inc/pagevars'
 require_relative 'inc/Dataconn'
-require_relative 'inc/api'
+require_relative 'controllers/capi'
 
 set :port, ENV['PORT'] || 8080
 set :bind, ENV['IP'] || '0.0.0.0'
@@ -104,9 +104,7 @@ get '/account/logout' do
   slim :accountLoggedOut
 end
 
-get '/api' do
-  "#{API.a()}"
-end
+extend CAPI
 
 #not_found do
 #  slim :404
