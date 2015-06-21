@@ -16,10 +16,6 @@ class TestVersion < Test::Unit::TestCase
     get '/contact'
     assert last_response.ok?
   end
-  def test_homepage
-    get '/'
-    assert last_response.ok?
-  end
   def test_loginpage
     get '/account/login'
     assert last_response.ok?
