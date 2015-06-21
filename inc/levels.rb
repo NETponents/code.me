@@ -1,5 +1,6 @@
 module Levels
   def Levels.getLevelName(lnum)
+    lnum = lnum.to_i
     if lnum == 0
       return 'Unknown'
     elsif lnum == 1
@@ -21,6 +22,7 @@ module Levels
     end
   end
   def Levels.getLevelFromPoints(points)
+    points = points.to_i
     if points >= 0 and points < 100
       return 1
     elsif points >= 100 and points < 200
