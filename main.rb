@@ -107,6 +107,15 @@ end
 get '/api' do
   "#{API.a()}"
 end
+get '/api/notifications' do
+  if login?
+    "#{API.aNotifications(session[:username])}"
+  elsif devenv?
+    "#{API.aNotifications("ARMmaster17")}"
+  else
+    "401"
+  end
+end
 
 #not_found do
 #  slim :404
