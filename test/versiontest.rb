@@ -36,4 +36,8 @@ class TestVersion < Test::Unit::TestCase
     get '/api'
     assert last_response.ok?
   end
+  def test_api_notifications
+    get '/get/notifications'
+    assert last_response.ok?
+  end
 end
