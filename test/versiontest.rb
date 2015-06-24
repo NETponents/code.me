@@ -10,7 +10,7 @@ class TestVersion < Test::Unit::TestCase
     r = ""
     while r != "Ultimate Coder" do
       Levels.getLevelName(i)
-      i++
+      i = i + 1
     end
     assert r != ""
   end
