@@ -8,7 +8,7 @@ class TestVersion < Test::Unit::TestCase
   def test_unit_levels
     i = 0
     r = ""
-    while r != "Ultimate Coder" do
+    while i < 14 do
       r = Levels.getLevelName(i)
       i = i + 1
     end
@@ -17,7 +17,7 @@ class TestVersion < Test::Unit::TestCase
   def test_unit_levelsnum
     i = 100
     r = 100
-    while r != 0 do
+    while i < 35000 do
       r = Levels.getLevelFromPoints(i)
       i = i + 100
     end
