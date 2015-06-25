@@ -21,7 +21,7 @@ class TestVersion < Test::Unit::TestCase
       r = Levels.getLevelFromPoints(i)
       i = i + 100
     end
-    assert r == 0
+    assert r != ""
   end
   include Rack::Test::Methods
   def app
