@@ -38,9 +38,6 @@ helpers do
       return false
     end
   end
-  def auth_username
-    return session[:username]
-  end
 end
 
 get '/' do
