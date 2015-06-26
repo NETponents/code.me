@@ -4,6 +4,6 @@ module API
     return "200 API online. Version: #{Pagevars.setVars("CIbuild")}"
   end
   def API.aNotifications(uname)
-    return "<info><item type=\"info\" title=\"#{uname}\">Notification API is online.</item></info>"
+    return "[ { 'title' : '#{uname}', 'msg' : 'Notification API is online.', 'type' : 'info' } ]"
   end
 end
